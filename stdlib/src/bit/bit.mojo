@@ -28,8 +28,16 @@ from sys.info import bitwidthof
 
 
 @always_inline("nodebug")
-fn countl_zero(val: Int) -> Int:
+fn countl_zero[
+    type: DType
+](val: type) -> Int:
     """Counts the number of leading zeros of an integer.
+
+    Parameters:
+        type: `DType` used for the computation.
+
+    Constraints:
+        The element type of the input vector must be integral.
 
     Args:
         val: The input value.
@@ -37,7 +45,8 @@ fn countl_zero(val: Int) -> Int:
     Returns:
         The number of leading zeros of the input.
     """
-    return llvm_intrinsic["llvm.ctlz", Int, has_side_effect=False](val, False)
+    constrained[type.is_integral(), "must be integral"]()
+    return llvm_intrinsic["llvm.ctlz", type, has_side_effect=False](val, False)
 
 
 @always_inline("nodebug")
