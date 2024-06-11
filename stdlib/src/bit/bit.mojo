@@ -28,9 +28,7 @@ from sys.info import bitwidthof
 
 
 @always_inline("nodebug")
-fn countl_zero[
-    type: DType
-](val: type) -> Int:
+fn countl_zero[type: DType, //](val: type) -> Int:
     """Counts the number of leading zeros of an integer.
 
     Parameters:
